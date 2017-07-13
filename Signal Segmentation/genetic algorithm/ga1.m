@@ -1,29 +1,28 @@
-%% This program plots the signal segments computed for the sample EEG data
-
 
 %Import patient data
-patientData = importdata('sample.csv');
+%Inputs are the 'filename', 'number of samples to segment', 'sample rate', 'threshold value'
+patientData = importdata('sample.csv'); 
 n = length(patientData);
 Time = patientData(1:n,1);
 EEG1 = patientData(1:n,2);
-length_signal = 1166; %length of the signal
+length_signal = 1166; %number of samples I want to segment
 EEGSignal1_42sec = EEG1(1:length_signal);
-fs = length_signal/(Time(length_signal)-Time(1));
-combine_seg_window_length = 20; %samples
+fs = length_signal/(Time(length_signal)-Time(1)); %better sample rate, better results. You can manually enter the sample rate too.
 
-lim = 5; %number of signlas to be taken while detecting false segments
-threshold = 1; %threshold for detecting false segments
+lim = 5; %number of signals to be taken while detecting false segments
+threshold = 1; %threshold for detecting false segments. Can be manually adjusted
 winlength = 17; %window length to be taken
 
-envelope(EEG1(1:length_signal),50,'rms');
-[yupper, ylower] = envelope(EEG1(1:length_signal),50,'rms');
+envelope(EEG1(1:length_signal),50,'rms'); %prints the envelope
+[yupper, ylower] = envelope(EEG1(1:length_signal),50,'rms'); %getting the envelope for detecting segment checkers
+%I have used yupper envelope in my case
 
 % %Perform adpative signal segmentation
 [~,X_m,Y_m] = ga2( yupper, Time, 1,0,length_signal, fs, winlength, EEGSignal1_42sec);
 FitnessFunction = @(x) fitness(x,X_m,Y_m, length_signal);
 numberOfVariables = 2;
 [x,fval] = ga(FitnessFunction,numberOfVariables);
-[savGolSegments,~,~] = ga2( yupper, Time, x(1),x(2),length_signal, fs, winlength, EEGSignal1_42sec);
+[savGolSegments,~,~] = ga2( yupper, Time, x(1),x(2),length_signal, fs, winlength, EEGSignal1_42sec); %x(1) - A1, x(2) - F1
 % EEGSignal1_42sec = yupper;
 %Plot originalclea EEG signal
 figure; 
@@ -31,7 +30,7 @@ hold;
 plot(Time(1:length_signal),EEGSignal1_42sec);
 xlabel('Time(seconds)');
 ylabel('Amplitude');
-title('Original EEG Signal');
+title('Original Signal');
 
 time = Time(1:length_signal);
 timeseg = [];
