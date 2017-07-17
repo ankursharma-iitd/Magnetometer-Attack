@@ -62,21 +62,14 @@ winLen = winlength; %window length (samples)
 signalLen = lenlen; %total signal length (samples)
 numWin = ceil(signalLen/winLen); %Num of windows for signal
 winNumElem =  floor(signalLen/numWin);
-lastWinNumElem = size(signal,2) - ((numWin-1)*winNumElem); %Num elements in the last window
-
-%A1 = 10; F1 = 7; %Modified Varri constants
 G_m = zeros(1,numWin);    %initialize measure difference function
-
 %Calculate G_m
-for win = 1:numWin-1
-
-    %handles the last window case(not necessarily same len as other windows)
+    for win = 1:numWin-1 %handles the last window case(not necessarily same len as other windows)
     if(win == numWin-1)
         winNumElemNext = size(signal,2)/(win+1);
     else
         winNumElemNext = winNumElem;
     end
-    
     currWin = signal((win-1)*winNumElem + 1 : win*winNumElem);
     nextWin = signal(win*winNumElem + 1: (win+1)*winNumElemNext);
     currWin2 = signal2((win-1)*winNumElem + 1 : win*winNumElem);
@@ -84,6 +77,5 @@ for win = 1:numWin-1
     G_m(win) = A1 * abs(adif(nextWin) - adif(currWin)) + F1 * abs(fdif(nextWin2) - fdif(currWin2));
     X_m = [X_m (abs(adif(nextWin) - adif(currWin)))];
     Y_m = [Y_m (abs(fdif(nextWin2) - fdif(currWin2)))];
-end
-
+    end
 end
