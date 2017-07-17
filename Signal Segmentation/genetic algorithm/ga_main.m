@@ -4,7 +4,7 @@ total = [];
 
 %following are the inputs that need to be provided
 filename = 'sample.csv'; %specify the filename
-length_signal = 766; %specify the length of the signal
+length_signal = 766; %specify the length    of the signal
 limit = 5; %Sample Values to be considered while segment checking as if it is a true segment or false segment
 threshold = 1; %difference in the mean amplitude values on the left and the right side of every segment, if greater than this threshold will imply a true segment
 window_length = 17; %length of the window under consideration
