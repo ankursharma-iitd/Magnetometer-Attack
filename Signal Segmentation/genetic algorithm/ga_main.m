@@ -8,7 +8,7 @@ length_signal = 766; %specify the length of the signal
 limit = 5; %Sample Values to be considered while segment checking as if it is a true segment or false segment
 threshold = 1; %difference in the mean amplitude values on the left and the right side of every segment, if greater than this threshold will imply a true segment
 window_length = 17; %length of the window under consideration
-number_of_iterations = 10; %number of times the algorithm runs
+number_of_iterations = 100; %number of times the algorithm runs
 
 %runs the algorithm over a number of times, and stores all the values in a
 %large vector 'total'

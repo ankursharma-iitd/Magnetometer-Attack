@@ -21,7 +21,7 @@ fs = length_signal/(Time(length_signal)-Time(1)); %better sample rate, better re
 FitnessFunction = @(x) fitness(x,X_m,Y_m, length_signal); %call the fitness function using these parameters
 numberOfVariables = 2;
 % rng default
-[x,fval,exitFlag, Output] = ga(FitnessFunction,numberOfVariables %'x' vector gives me the best possible values of A1, and F1 used for the modified varri approach
+[x,fval,exitFlag, Output] = ga(FitnessFunction,numberOfVariables); %'x' vector gives me the best possible values of A1, and F1 used for the modified varri approach
 
 
 % 'savGolSegments' denote the segments resulted after running the M.V.
