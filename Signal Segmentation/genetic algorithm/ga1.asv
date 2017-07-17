@@ -1,7 +1,3 @@
-%This function runs the geentic algo, gets the best possible values for A1,and F1.
-%Then, it chops off the false segments, and returns the remaining segments
-%back to the 'ga_main.m'
-
 function[values] = ga1(filename, length_signal, lim, threshold,winlength)
 
 signalData = importdata(filename); 
@@ -21,13 +17,9 @@ fs = length_signal/(Time(length_signal)-Time(1)); %better sample rate, better re
 FitnessFunction = @(x) fitness(x,X_m,Y_m, length_signal); %call the fitness function using these parameters
 numberOfVariables = 2;
 % rng default
-[x,fval,exitFlag, Output] = ga(FitnessFunction,numberOfVariables %'x' vector gives me the best possible values of A1, and F1 used for the modified varri approach
+[x,fval,exitFlag, Output] = ga(FitnessFunction,numberOfVariables);
 
 
-% 'savGolSegments' denote the segments resulted after running the M.V.
-% method with A1, and F1 calcualted from G.A.
-% MV - Modified Varri
-% GA - Genetic ALgo
 [savGolSegments,~,~] = ga2(yupper, Time, x(1),x(2),length_signal, fs, winlength, signalValues); %x(1) - A1, x(2) - F1
 
 
@@ -129,8 +121,8 @@ disp(savGolSegments);
 disp('ACTUAL SEGMENTS');
 disp(btsegments);
 disp(x); %Values of A1, and F1 at which I get the best results
-disp(Output.generations); %the number of generations
-disp(Output.funccount); %function counts
+disp(Output.generations);
+disp(Output.funccount);
 values = btsegments; %return the values
 end
 
