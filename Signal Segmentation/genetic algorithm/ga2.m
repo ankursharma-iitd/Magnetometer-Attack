@@ -54,6 +54,22 @@ F_dif = 0;
 F_dif = mean(abs(diff(idx)));
 end
 
+% %Calculates A_dif for a given window
+% function[A_dif] = adif(window)
+% A_dif = 0;
+% for idx = 1:size(window,2)
+%     A_dif = A_dif + abs(window(idx));
+% end
+% end
+% 
+% %Calculates F_dif for a given window
+% function [F_dif] = fdif(window)
+% F_dif = 0;
+% for idx = 2:size(window, 2)
+%     F_dif = F_dif + abs(window(idx) - window(idx - 1));
+% end
+% end
+
 %Modified Varri Method
 function [G_m, X_m, Y_m] = modifiedVarri(signal, A1, F1, lenlen, winlength, signal2)
 X_m = [];
