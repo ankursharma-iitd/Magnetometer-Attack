@@ -15,7 +15,7 @@ Serial.begin(9600);
 
    digitalWrite(RELAY1,0);           // Turns ON Relays 1
    Serial.println("Light ON");
-   delay(random(1,2000));                                      // Wait 2 seconds
+   delay(random(1,2000));            // Random time delay
 
    digitalWrite(RELAY1,1);          // Turns Relay Off
    Serial.println("Light OFF");
